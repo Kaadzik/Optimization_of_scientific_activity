@@ -23,7 +23,7 @@ class Author(object):
 
 def read_datasheet(source: str = default_path):
     data = pd.read_excel(source, usecols=[0, 1, 2, 3, 4])
-    N_value = data['employee_id'].nunique()
+    N_value = data['author_id'].nunique()
     data.replace("", float("NaN"), inplace=True)
     data.dropna(inplace=True)
     data.reset_index(drop=True, inplace=True)
@@ -34,8 +34,8 @@ def create_publication_list(data) -> list:
     publication_list = []
     for index, row in data.iterrows():
         publication_list.append(
-            Publication(int(row['id_publ']), row['employee_id'], row['sloty_u'], row['sloty_pu'],
-                        False if round(row['sloty_pu']/row['sloty_u']) > 100 else True, 0))
+            Publication(int(row['publ_id']), row['author_id'], row['publ_slot'], row['publ_points'],
+                        False if round(row['publ_points']/row['publ_slot']) > 100 else True, 0))
     return publication_list
 
 
@@ -43,9 +43,9 @@ def create_author_list(publication_list: list, data) -> list:
     author_list = []
     current_author = 0
     for index, row in data.iterrows():
-        if not author_list or author_list[current_author].author_id != row['employee_id']:
+        if not author_list or author_list[current_author].author_id != row['author_id']:
             author_list.append(
-                Author(row['employee_id'], [], row['limit_n']))
+                Author(row['author_id'], [], row['author_slot']))
             if not (current_author == 0 and not author_list[current_author].publications):
                 current_author += 1
         author_list[current_author].publications.append(publication_list[index])

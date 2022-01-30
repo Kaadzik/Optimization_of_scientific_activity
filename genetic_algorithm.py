@@ -88,9 +88,9 @@ def crossover(parent1: PopulationMember, parent2: PopulationMember, publications
 
 def genetic_algorithm(Nval: int, publications: list, authors: list) -> PopulationMember:
     current_population = []
-    number_of_iterations = 5000
+    number_of_iterations = 7500
     population_size = min(len(publications) // 6, 50)
-    mutation_probability = 0.3
+    mutation_probability = 0.55
     while len(current_population) < population_size:
         population_member = random_population_member(Nval, publications, authors)
         if limits_check(Nval, population_member, authors):
@@ -108,11 +108,14 @@ def genetic_algorithm(Nval: int, publications: list, authors: list) -> Populatio
             parent1 = choose_a_parent(roulette_slices, current_population)
             parent2 = choose_a_parent(roulette_slices, current_population)
             child1, child2 = crossover(parent1, parent2, publications, authors)
+            iter_check = 0
             if limits_check(Nval, child1, authors) and child1.get_value() > current_population[0].get_value():
                 current_population.append(child1)
                 del current_population[0]
+            else: iter_check = 1
             if limits_check(Nval, child2, authors) and child2.get_value() > current_population[0].get_value():
                 current_population.append(child2)
                 del current_population[0]
+            elif iter_check == 1: curr_iter -= 1
     current_population.sort(key=lambda x: x.get_value(), reverse=True)
     return current_population[0]
