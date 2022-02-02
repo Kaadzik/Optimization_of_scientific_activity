@@ -1,3 +1,4 @@
+#Code by: Kamil Adamczyk
 import dataset_import as data
 import genetic_algorithm as gen
 import linear_programming as lin

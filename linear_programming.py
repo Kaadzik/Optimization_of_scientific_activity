@@ -1,3 +1,4 @@
+#Code by: Kamil Adamczyk
 from ortools.linear_solver import pywraplp
 import genetic_algorithm as gen
 import numpy as np

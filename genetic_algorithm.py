@@ -1,3 +1,4 @@
+#Code by: Kamil Adamczyk
 import numpy as np
 
 

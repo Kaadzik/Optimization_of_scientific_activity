@@ -1,3 +1,4 @@
+#Code by: Kamil Adamczyk
 import pandas as pd
 
 default_path = 'Datasets/dataset_1.xlsx'
